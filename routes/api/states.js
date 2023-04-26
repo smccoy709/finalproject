@@ -15,10 +15,11 @@ router.route('/').get((req, res) => {
 router.route('/:state').get((req, res) => {
   const requestedState = findState(req.params.state);
   
-  res.json(requestedState);
-
-  if (router.route('/:state') !== requestedState) {
-    console.log("Invalid state abbreviation parameter");
+  if (!requestedState) {
+    res.json('Invalid state abbreviation parameter');
+  }
+  else {
+    res.json(requestedState);
   }
 });
 
@@ -44,6 +45,12 @@ router.route('/:state/admission').get((req, res) => {
   const requestedState = findState(req.params.state);
 
   res.json({ "state" : requestedState.state, "admitted" : requestedState.admission_date});
+});
+
+router.route('/:state/funfact').get((req, res) => {
+  const requestedState = findState(req.params.state);
+
+  res.json({ "state" : requestedState.state, "funfact" : requestedState.funfact});
 });
 
 // POST state requests
