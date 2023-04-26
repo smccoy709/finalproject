@@ -103,7 +103,7 @@ const getAllStates = (req, res) => {
 };
 
 const findState = (stateParam) => {
-  return data.states.find(state => state.code.toLowerCase() == stateParam.toLowerCase());
+  return data.states.find(state => state.code.toUpperCase() == stateParam.toUpperCase());
 };
 
 module.exports = router;
