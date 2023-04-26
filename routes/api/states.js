@@ -16,6 +16,10 @@ router.route('/:state').get((req, res) => {
   const requestedState = findState(req.params.state);
   
   res.json(requestedState);
+
+  if (router.route('/:state') !== requestedState) {
+    console.log("Invalid state abbreviation parameter");
+  }
 });
 
 router.route('/:state/capital').get((req, res) => {
