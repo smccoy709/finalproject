@@ -16,7 +16,7 @@ router.route('/:state').get((req, res) => {
   const requestedState = findState(req.params.state);
   
   if (!requestedState) {
-    res.json('Invalid state abbreviation parameter');
+    res.json({"message": "Invalid state abbreviation parameter"});
   }
   else {
     res.json(requestedState);
@@ -26,31 +26,59 @@ router.route('/:state').get((req, res) => {
 router.route('/:state/capital').get((req, res) => {
   const requestedState = findState(req.params.state);
 
-  res.json({ "state" : requestedState.state, "capital" : requestedState.capital_city});
+  if (!requestedState) {
+    res.json({"message": "Invalid state abbreviation parameter"});
+  }
+  else {
+    res.json({ "state" : requestedState.state, "capital" : requestedState.capital_city});
+  }
 });
 
 router.route('/:state/nickname').get((req, res) => {
   const requestedState = findState(req.params.state);
 
-  res.json({ "state" : requestedState.state, "nickname" : requestedState.nickname});
+  if (!requestedState) {
+    res.json({"message": "Invalid state abbreviation parameter"});
+  }
+  else {
+    res.json({ "state" : requestedState.state, "nickname" : requestedState.nickname});
+  }
 });
 
 router.route('/:state/population').get((req, res) => {
   const requestedState = findState(req.params.state);
 
-  res.json({ "state" : requestedState.state, "population" : requestedState.population});
+  if (!requestedState) {
+    res.json({"message": "Invalid state abbreviation parameter"});
+  }
+  else {
+    return res.json({"state":requestedState.state,"population":requestedState.population.toLocaleString()});
+  }
 });
 
 router.route('/:state/admission').get((req, res) => {
   const requestedState = findState(req.params.state);
 
-  res.json({ "state" : requestedState.state, "admitted" : requestedState.admission_date});
+  if (!requestedState) {
+    res.json({"message": "Invalid state abbreviation parameter"});
+  }
+  else {
+    res.json({ "state" : requestedState.state, "admitted" : requestedState.admission_date});
+  }
 });
 
 router.route('/:state/funfact').get((req, res) => {
   const requestedState = findState(req.params.state);
 
-  res.json({ "state" : requestedState.state, "funfact" : requestedState.funfact});
+  if (!requestedState) {
+    res.json({"message": "Invalid state abbreviation parameter"});
+  }
+  else if (requestedState === findState("GA")) {
+    res.json({"message": "No Fun Facts found for Georgia"});
+  }
+  else {
+    res.json({ "state" : requestedState.state, "funfact" : requestedState.funfact});
+  }
 });
 
 // POST state requests
